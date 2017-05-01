@@ -9,6 +9,7 @@ const remoteProps = {
 	snua: 'User-Agent',
 	clip: 'Client-IP'
 };
+const prgr = ['start', 'current', 'end'];
 
 var objectify = (str, split, map, order) =>
 	str.split(split).map(map).reduce((memo, val, i) => {
@@ -31,6 +32,7 @@ class ShairportSyncReader extends EventEmitter {
 		switch (code) {
 			case 'prgr':
 				cont = objectify(cont, '/', x => parseInt(x, 10)/sampling, ['start', 'current', 'end']);
+				prgr.each(key => cont[key] -= cont[prgr[0]]);
 				break;
 			case 'pvol':
 				cont = objectify(cont, ',', parseFloat, ['airplay', 'volume', 'lowest', 'highest']);
