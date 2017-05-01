@@ -6,7 +6,7 @@ class ShairportSyncReaderPipe extends ShairportSyncReader {
 	constructor(opts) {
 		super();
 		this._XML = '';
-		this._source = fs.createReadStream(opts.path).on('data', this._readChunk);
+		this._source = fs.createReadStream(opts.path).on('data', this._readChunk.bind(this));
 	}
 	_readChunk(chunk) {
 		var XMLPart,
