@@ -1,0 +1,26 @@
+{
+  "name": "shairport-sync-reader",
+  "version": "0.0.1",
+  "description": "Shairport-sync metadata reader",
+  "main": "shairport-sync-reader.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "homepage": "https://github.com/roblan/shairport-sync-reader",
+  "bugs": "https://github.com/roblan/shairport-sync-reader/issues",
+  "keywords": [
+    "shairport",
+    "shairport-sync",
+    "airplay",
+    "metadata"
+  ],
+  "author": {
+    "name": "Robert Lange",
+    "url": "https://github.com/roblan"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "daap-parser": "0.0.1",
+    "xml2js": "^0.4.17"
+  }
+}
