@@ -16,7 +16,7 @@ class ShairportSyncReaderPipe extends ShairportSyncReader {
 		this._XML += chunk;
 
 		itemStart = this._XML.indexOf('<item>');
-		this._XML = this._XML.substring(itemStart !== -1 ? itemStart : XML.length);
+		this._XML = this._XML.substring(itemStart !== -1 ? itemStart : this._XML.length);
 
 		// check if there is any full tag
 		itemEnd = this._XML.lastIndexOf('</item>');
