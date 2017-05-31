@@ -1,6 +1,6 @@
 {
   "name": "shairport-sync-reader",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Shairport-sync metadata reader",
   "main": "shairport-sync-reader.js",
   "scripts": {
