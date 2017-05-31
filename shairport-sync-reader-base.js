@@ -1,7 +1,6 @@
 const EventEmitter = require('events');
 const parser = require('daap-parser');
 
-const sampling = 44100;
 const remoteProps = {
 	daid: 'DACP-ID',
 	acre: 'Active-Remote',
@@ -31,8 +30,7 @@ class ShairportSyncReader extends EventEmitter {
 	_preparseData(code, cont) {
 		switch (code) {
 			case 'prgr':
-				cont = objectify(cont, '/', x => parseInt(x, 10)/sampling, ['start', 'current', 'end']);
-				prgr.each(key => cont[key] -= cont[prgr[0]]);
+				cont = objectify(cont, '/', x => parseInt(x, 10), ['start', 'current', 'end']);
 				break;
 			case 'pvol':
 				cont = objectify(cont, ',', parseFloat, ['airplay', 'volume', 'lowest', 'highest']);
