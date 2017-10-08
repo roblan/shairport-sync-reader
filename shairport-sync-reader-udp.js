@@ -8,13 +8,38 @@ class ShairportSyncReaderUDP extends ShairportSyncReader {
 
 		this._source.bind(opts.port, () => this._source.addMembership(opts.address));
 
-		this._source.on('message', msg =>
-			this.useData({
-				type: msg.toString(undefined, 0, 4),
-				code: msg.toString(undefined, 4, 8),
-				cont: msg.slice(8)
-			})
-		);
+		this._total = 0;
+		this._chunked = Buffer.allocUnsafe(0);
+
+		this._source.on('message', msg => {
+			const data = {
+				type: msg.toString('utf8', 0, 4),
+				code: msg.toString('utf8', 4, 8),
+			};
+
+			if (data.code === 'chnk') {
+				this._total += 1;
+				const total = parseInt(msg.toString('hex', 12, 16), 16);
+				this._chunked = Buffer.concat([this._chunked, msg.slice(24)]);
+
+				if (this._total === total) {
+					this.useData({
+						type: msg.toString('utf8', 16, 20),
+						code: msg.toString('utf8', 20, 24),
+						cont: this._chunked,
+					});
+				}
+			} else {
+				if (!this._total) {
+					this._total = 0;
+					this._chunked = Buffer.allocUnsafe(0);
+				}
+
+				data.cont = msg.slice(8);
+
+				this.useData(data);
+			}
+		});
 	}
 }
 
