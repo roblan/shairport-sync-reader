@@ -48,6 +48,7 @@ class ShairportSyncReader extends EventEmitter {
 		return cont;
 	}
 	useData(data) {
+		try {
 		if (data.type == 'ssnc') {
 			if (data.code !== 'PICT') {
 				data.cont = data.cont.toString();
@@ -94,6 +95,9 @@ class ShairportSyncReader extends EventEmitter {
 			}
 		} else {
 			this._meta[data.code] = parser.parseTag(data.code, data.cont);
+		}
+		} catch (e) {
+			console.log(e)
 		}
 	}
 }
