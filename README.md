@@ -22,6 +22,7 @@ event names are taken from [shairport-sync-metadata-reader](https://github.com/m
 event | description | data
 ----- | ----------- | ----
 pbeg | play stream begin. `snam` is not always send | ```{ 'Client-IP': clip, 'User-Agent': snua, 'Active-Remote': acre, 'DACP-ID': daid, 'X-Apple-Client-Name': snam }```
+pend | play stream end | -
 client | client port is known | ```{ 'Client-IP': clip, 'User-Agent': snua, 'Active-Remote': acre, 'DACP-ID': daid, 'X-Apple-Client-Name': snam, 'Port': dapo }```
 pfls | play stream flush | -
 prgr | progress, in second | ```{ start: 0, current: 17, end: 42 }```
