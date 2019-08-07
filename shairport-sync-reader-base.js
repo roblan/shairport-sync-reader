@@ -67,16 +67,16 @@ class ShairportSyncReader extends EventEmitter {
 			switch (data.code) {
 				case 'mdst':
 					this._meta = {};
-					this._rtptime.meta = data.cont;
+					this._rtptime.meta = data.cont;					
 					break;
 				case 'mden':
 					this.emit('meta', this._meta);
 					break;
 				case 'pcst':
-					this._rtptime.pict = data.cont;
+					this._pictStart = true;
 					break;
 				case 'pcen':
-					delete this._rtptime.pict;
+					this._pictStart = false;
 					break;
 				case 'stal':
 					this.emit('error', data.code);
@@ -85,7 +85,7 @@ class ShairportSyncReader extends EventEmitter {
 					this.emit('client', data.cont);
 					break;
 				case 'PICT':
-					if (this._rtptime.pict === this._rtptime.meta && data.cont.length) {
+					if (this._pictStart && data.cont.length) {
 						this.emit(data.code, data.cont);
 					}
 					break;

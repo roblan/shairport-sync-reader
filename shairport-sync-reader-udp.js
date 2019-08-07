@@ -28,6 +28,7 @@ class ShairportSyncReaderUDP extends ShairportSyncReader {
 						code: msg.toString('utf8', 20, 24),
 						cont: this._chunked,
 					});
+					this._total = 0;
 				}
 			} else {
 				if (!this._total) {
